@@ -23,16 +23,16 @@ import java.util.List;
 public class ContactForm extends FormLayout {
   private Contact contact;
 
-  TextField firstName = new TextField("First name");
-  TextField lastName = new TextField("Last name");
-  EmailField email = new EmailField("Email");
-  ComboBox<Status> status = new ComboBox<>("Status");
-  ComboBox<Company> company = new ComboBox<>("Company");
+  TextField firstName = new TextField("Имя");
+  TextField lastName = new TextField("Фамилия");
+  EmailField email = new EmailField("Почта");
+  ComboBox<Status> status = new ComboBox<>("Статус");
+  ComboBox<Company> company = new ComboBox<>("Компания");
   Binder<Contact> binder = new BeanValidationBinder<>(Contact.class);
 
-  Button save = new Button("Save");
-  Button delete = new Button("Delete");
-  Button close = new Button("Cancel");
+  Button save = new Button("Сохранить");
+  Button delete = new Button("Удалить");
+  Button close = new Button("Отменить");
 
   public ContactForm(List<Company> companies, List<Status> statuses) {
     addClassName("contact-form");
@@ -84,7 +84,7 @@ public class ContactForm extends FormLayout {
 
   // Events
   public static abstract class ContactFormEvent extends ComponentEvent<ContactForm> {
-    private Contact contact;
+    private final Contact contact;
 
     protected ContactFormEvent(ContactForm source, Contact contact) {
       super(source, false);

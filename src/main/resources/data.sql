@@ -1,3 +1,12 @@
+INSERT INTO "USER" VALUES
+('72b11cec-0080-496a-a3a9-92494007befb', 'User1', '123456', '5ce3bbc1-6561-4c71-aa33-312392322b40'),
+('5ce3bbc1-6561-4c71-aa33-382692322b40', 'User2', '123456', '5ce3bbc1-6561-4c71-aa33-312392322b40'),
+('d6c3fe4e-e7c9-4961-b7fe-9350242992e9', 'User3', '123456', '5ce3bbc1-6561-4c71-aa33-312392322b40'),
+('983b41a6-f1b6-4309-87df-5bfd2048392f', 'Admin1', '123456', '72b11cec-0080-496a-a3a9-92492327befb'),
+('b501cfdc-ea0b-4659-b6d5-0449467a9ca0', 'Admin2', '123456', '72b11cec-0080-496a-a3a9-92492327befb');
+INSERT INTO "ROLE" VALUES
+('72b11cec-0080-496a-a3a9-92492327befb', 'Admin'),
+('5ce3bbc1-6561-4c71-aa33-312392322b40', 'User'),
 INSERT INTO "STATUS" VALUES
 ('72b11cec-0080-496a-a3a9-92494007befb', 'Imported lead'),
 ('5ce3bbc1-6561-4c71-aa33-382692322b40', 'Not contacted'),
