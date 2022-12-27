@@ -14,11 +14,11 @@ public class Role extends AbstractEntity {
         this.role = role;
     }
 
-    public String getRole() {
+    public String getName() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setName(String role) {
         this.role = role;
     }
 
