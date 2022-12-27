@@ -1,7 +1,7 @@
-package com.example.application.views.list;
+package com.example.application.views.admin;
 
-import com.example.application.data.entity.Contact;
-import com.example.application.data.service.CrmService;
+import com.example.application.data.entity.User;
+import com.example.application.data.service.UserService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -20,25 +20,25 @@ import javax.annotation.security.PermitAll;
 @Component
 @Scope("prototype")
 @Route(value="", layout = MainLayout.class)
-@PageTitle("Клиенты")
+@PageTitle("Администрирование")
 @PermitAll
-public class ListView extends VerticalLayout {
-    Grid<Contact> grid = new Grid<>(Contact.class);
+public class AdminView extends VerticalLayout {
+    Grid<User> grid = new Grid<>(User.class);
     TextField filterText = new TextField();
-    ContactForm form;
-    CrmService service;
+    UserForm form;
+    UserService service;
 
-    public ListView(CrmService service) {
+    public AdminView(UserService service) {
         this.service = service;
         addClassName("list-view");
         setSizeFull();
         configureGrid();
 
-        form = new ContactForm(service.findAllCompanies(), service.findAllStatuses());
+        form = new UserForm(service.findAllRoles());
         form.setWidth("25em");
-        form.addListener(ContactForm.SaveEvent.class, this::saveContact);
-        form.addListener(ContactForm.DeleteEvent.class, this::deleteContact);
-        form.addListener(ContactForm.CloseEvent.class, e -> closeEditor());
+        form.addListener(UserForm.SaveEvent.class, this::saveUser);
+        form.addListener(UserForm.DeleteEvent.class, this::deleteUser);
+        form.addListener(UserForm.CloseEvent.class, e -> closeEditor());
 
         FlexLayout content = new FlexLayout(grid, form);
         content.setFlexGrow(2, grid);
@@ -51,72 +51,67 @@ public class ListView extends VerticalLayout {
         updateList();
         closeEditor();
         grid.asSingleSelect().addValueChangeListener(event ->
-            editContact(event.getValue()));
+                editUser(event.getValue()));
     }
 
     private void configureGrid() {
         grid.addClassNames("contact-grid");
         grid.setSizeFull();
-        grid.setColumns("firstName", "lastName", "email");
 
-        grid.addColumn(Contact::getFirstName).setHeader("Имя").setSortable(true);
-        grid.addColumn(Contact::getLastName).setHeader("Фамилия").setSortable(true);
-        grid.addColumn(Contact::getEmail).setHeader("Почта").setSortable(true);
-        grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Статус сделки").setSortable(true);
-        grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Компания").setSortable(true);
+        grid.addColumn(User::getLogin).setHeader("Логин").setSortable(true);
+        grid.addColumn(User::getPassword).setHeader("Пароль");
+        grid.addColumn(user -> user.getRole().getRole()).setHeader("Роль").setSortable(true);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Фильтр по имени...");
+        filterText.setPlaceholder("Фильтр по логину...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
-        Button addContactButton = new Button("Добавить клиента");
-        addContactButton.addClickListener(click -> addContact());
+        Button addUserButton = new Button("Создать пользователя");
+        addUserButton.addClickListener(click -> addUser());
 
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, addContactButton);
+        HorizontalLayout toolbar = new HorizontalLayout(filterText, addUserButton);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
 
-    private void saveContact(ContactForm.SaveEvent event) {
-        service.saveContact(event.getContact());
+    private void saveUser(UserForm.SaveEvent event) {
+        service.saveUser(event.getUser());
         updateList();
         closeEditor();
     }
 
-    private void deleteContact(ContactForm.DeleteEvent event) {
-        service.deleteContact(event.getContact());
+    private void deleteUser(UserForm.DeleteEvent event) {
+        service.deleteUser(event.getUser());
         updateList();
         closeEditor();
     }
 
-    public void editContact(Contact contact) {
-        if (contact == null) {
+    public void editUser(User user) {
+        if (user == null) {
             closeEditor();
         } else {
-            form.setContact(contact);
+            form.setUser(user);
             form.setVisible(true);
             addClassName("editing");
         }
     }
 
-    void addContact() {
+    void addUser() {
         grid.asSingleSelect().clear();
-        editContact(new Contact());
+        editUser(new User());
     }
 
     private void closeEditor() {
-        form.setContact(null);
+        form.setUser(null);
         form.setVisible(false);
         removeClassName("editing");
     }
 
     private void updateList() {
-        grid.setItems(service.findAllContacts(filterText.getValue()));
+        grid.setItems(service.findAllUsers(filterText.getValue()));
     }
-
-
 }
