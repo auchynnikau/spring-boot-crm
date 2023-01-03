@@ -25,9 +25,7 @@ public class MainLayout extends AppLayout {
     private void createHeader() {
         H1 logo = new H1("Документооборот инвестиционного фонда");
         logo.addClassNames("text-l", "m-m");
-
         Button logout = new Button("Выйти", e -> securityService.logout());
-
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, logout);
 
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
@@ -36,21 +34,15 @@ public class MainLayout extends AppLayout {
         header.addClassNames("py-0", "px-m");
 
         addToNavbar(header);
-
     }
 
     private void createDrawer() {
+        RouterLink analyticsLink = new RouterLink("Аналитика", DashboardView.class);
+        RouterLink adminLink = new RouterLink("Администрирование", AdminView.class);
         RouterLink listLink = new RouterLink("Список документов", ListView.class);
+
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-        addToDrawer(new VerticalLayout(
-            listLink,
-            new RouterLink("Аналитика", DashboardView.class)
-        ));
-
-        addToDrawer(new VerticalLayout(
-                listLink,
-                new RouterLink("Администрирование", AdminView.class)
-        ));
+        addToDrawer(new VerticalLayout(listLink, analyticsLink, adminLink));
     }
 }

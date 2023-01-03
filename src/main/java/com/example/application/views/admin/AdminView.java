@@ -1,6 +1,6 @@
 package com.example.application.views.admin;
 
-import com.example.application.data.entity.User;
+import com.example.application.data.entity.Users;
 import com.example.application.data.service.UserService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
@@ -19,18 +19,18 @@ import javax.annotation.security.PermitAll;
 
 @Component
 @Scope("prototype")
-@Route(value="", layout = MainLayout.class)
+@Route(value="admin", layout = MainLayout.class)
 @PageTitle("Администрирование")
 @PermitAll
 public class AdminView extends VerticalLayout {
-    Grid<User> grid = new Grid<>(User.class);
+    Grid<Users> grid = new Grid<>(Users.class);
     TextField filterText = new TextField();
     UserForm form;
     UserService service;
 
     public AdminView(UserService service) {
         this.service = service;
-        addClassName("list-view");
+        addClassName("admin-view");
         setSizeFull();
         configureGrid();
 
@@ -55,12 +55,13 @@ public class AdminView extends VerticalLayout {
     }
 
     private void configureGrid() {
-        grid.addClassNames("contact-grid");
+        grid.addClassNames("user-grid");
         grid.setSizeFull();
+        grid.setColumns("login", "password", "role");
 
-        grid.addColumn(User::getLogin).setHeader("Логин").setSortable(true);
-        grid.addColumn(User::getPassword).setHeader("Пароль");
-        grid.addColumn(user -> user.getRole().getRole()).setHeader("Роль").setSortable(true);
+        grid.addColumn(Users::getLogin).setHeader("Логин").setSortable(true);
+        grid.addColumn(Users::getPassword).setHeader("Пароль");
+        grid.addColumn(user -> user.getRole().getName()).setHeader("Роль").setSortable(true);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
@@ -90,7 +91,7 @@ public class AdminView extends VerticalLayout {
         closeEditor();
     }
 
-    public void editUser(User user) {
+    public void editUser(Users user) {
         if (user == null) {
             closeEditor();
         } else {
@@ -102,7 +103,7 @@ public class AdminView extends VerticalLayout {
 
     void addUser() {
         grid.asSingleSelect().clear();
-        editUser(new User());
+        editUser(new Users());
     }
 
     private void closeEditor() {

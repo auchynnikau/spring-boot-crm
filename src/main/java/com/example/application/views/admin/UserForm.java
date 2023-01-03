@@ -1,6 +1,6 @@
 package com.example.application.views.admin;
 
-import com.example.application.data.entity.User;
+import com.example.application.data.entity.Users;
 import com.example.application.data.entity.Role;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -19,24 +19,24 @@ import com.vaadin.flow.shared.Registration;
 import java.util.List;
 
 public class UserForm extends FormLayout {
-    private User user;
+    private Users user;
 
     TextField login = new TextField("Логин");
     TextField password = new TextField("Пароль");
     ComboBox<Role> role = new ComboBox<>("Роль");
 
-    Binder<User> binder = new BeanValidationBinder<>(User.class);
+    Binder<Users> binder = new BeanValidationBinder<>(Users.class);
 
     Button save = new Button("Сохранить");
     Button delete = new Button("Удалить");
     Button close = new Button("Отменить");
 
     public UserForm(List<Role> roles) {
-        addClassName("contact-form");
+        addClassName("user-form");
         binder.bindInstanceFields(this);
 
         role.setItems(roles);
-        role.setItemLabelGenerator(Role::getRole);
+        role.setItemLabelGenerator(Role::getName);
         add(login, password, role, createButtonsLayout());
     }
 
@@ -54,7 +54,7 @@ public class UserForm extends FormLayout {
         return new HorizontalLayout(save, delete, close);
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
         binder.readBean(user);
     }
@@ -70,26 +70,26 @@ public class UserForm extends FormLayout {
 
     // Events
     public static abstract class UserFormEvent extends ComponentEvent<UserForm> {
-        private final User user;
+        private final Users user;
 
-        protected UserFormEvent(UserForm source, User user) {
+        protected UserFormEvent(UserForm source, Users user) {
             super(source, false);
             this.user = user;
         }
 
-        public User getUser() {
+        public Users getUser() {
             return user;
         }
     }
 
     public static class SaveEvent extends UserFormEvent {
-        SaveEvent(UserForm source, User user) {
+        SaveEvent(UserForm source, Users user) {
             super(source, user);
         }
     }
 
     public static class DeleteEvent extends UserFormEvent {
-        DeleteEvent(UserForm source, User user) {
+        DeleteEvent(UserForm source, Users user) {
             super(source, user);
         }
     }

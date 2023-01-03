@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class User extends AbstractEntity {
+public class Users extends AbstractEntity {
 
     @NotEmpty
     private String login = "";

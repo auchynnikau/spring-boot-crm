@@ -27,7 +27,7 @@ public class DashboardView extends VerticalLayout {
     }
 
     private Component getContactStats() {
-        Span stats = new Span(service.countContacts() + " contacts");
+        Span stats = new Span(service.countContacts() + " клиентов");
         stats.addClassNames("text-xl", "mt-m");
         return stats;
     }
