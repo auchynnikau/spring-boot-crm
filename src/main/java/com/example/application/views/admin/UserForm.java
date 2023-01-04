@@ -36,7 +36,7 @@ public class UserForm extends FormLayout {
         binder.bindInstanceFields(this);
 
         role.setItems(roles);
-        role.setItemLabelGenerator(Role::getName);
+        role.setItemLabelGenerator(Role::getRole);
         add(login, password, role, createButtonsLayout());
     }
 
@@ -68,7 +68,6 @@ public class UserForm extends FormLayout {
         }
     }
 
-    // Events
     public static abstract class UserFormEvent extends ComponentEvent<UserForm> {
         private final Users user;
 

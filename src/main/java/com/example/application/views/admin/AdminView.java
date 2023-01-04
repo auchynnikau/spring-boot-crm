@@ -61,7 +61,7 @@ public class AdminView extends VerticalLayout {
 
         grid.addColumn(Users::getLogin).setHeader("Логин").setSortable(true);
         grid.addColumn(Users::getPassword).setHeader("Пароль");
-        grid.addColumn(user -> user.getRole().getName()).setHeader("Роль").setSortable(true);
+        grid.addColumn(user -> user.getUserRole().getRole()).setHeader("Роль").setSortable(true);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 

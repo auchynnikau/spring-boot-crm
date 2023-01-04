@@ -1,10 +1,16 @@
 package com.example.application.data.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "roles")
 public class Role extends AbstractEntity {
+    @Column(name = "role", nullable = false)
     private String role;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
 
     public Role() {
 
@@ -14,11 +20,11 @@ public class Role extends AbstractEntity {
         this.role = role;
     }
 
-    public String getName() {
+    public String getRole() {
         return role;
     }
 
-    public void setName(String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

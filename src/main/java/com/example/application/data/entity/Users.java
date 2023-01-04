@@ -1,22 +1,22 @@
 package com.example.application.data.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class Users extends AbstractEntity {
+    @Column(name = "login", unique = true, nullable = false)
+    private String login;
 
-    @NotEmpty
-    private String login = "";
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @NotEmpty
-    private String password = "";
+//    @Column(name = "enabled", nullable = false)
+//    private boolean enabled;
 
-    @NotNull
-    @ManyToOne
-    private Role role;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Role> role;
 
     public String getLogin() {
         return login;
@@ -34,11 +34,11 @@ public class Users extends AbstractEntity {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public Role getUserRole() {
+        return (Role) role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUserRole(Role role) {
+        this.role = (Set<Role>) role;
     }
 }
