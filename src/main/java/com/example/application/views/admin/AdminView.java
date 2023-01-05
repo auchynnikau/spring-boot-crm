@@ -57,7 +57,7 @@ public class AdminView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassNames("user-grid");
         grid.setSizeFull();
-        grid.setColumns("login", "password", "role");
+        grid.setColumns("login", "password");
 
         grid.addColumn(Users::getLogin).setHeader("Логин").setSortable(true);
         grid.addColumn(Users::getPassword).setHeader("Пароль");
