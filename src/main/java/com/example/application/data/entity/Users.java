@@ -1,18 +1,14 @@
 package com.example.application.data.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class Users extends AbstractEntity {
+    private String login;
 
-    @NotEmpty
-    private String login = "";
+    private String password;
 
-    @NotEmpty
-    private String password = "";
 
     @NotNull
     @ManyToOne
@@ -34,11 +30,11 @@ public class Users extends AbstractEntity {
         this.password = password;
     }
 
-    public Role getRole() {
+    public Role getUserRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setUserRole(Role role) {
         this.role = role;
     }
 }

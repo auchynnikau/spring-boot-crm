@@ -59,9 +59,9 @@ public class ListView extends VerticalLayout {
         grid.setSizeFull();
         grid.setColumns("firstName", "lastName", "email");
 
-        grid.addColumn(Contact::getFirstName).setHeader("Имя").setSortable(true);
-        grid.addColumn(Contact::getLastName).setHeader("Фамилия").setSortable(true);
-        grid.addColumn(Contact::getEmail).setHeader("Почта").setSortable(true);
+//        grid.addColumn(Contact::getFirstName).setHeader("Имя").setSortable(true);
+//        grid.addColumn(Contact::getLastName).setHeader("Фамилия").setSortable(true);
+//        grid.addColumn(Contact::getEmail).setHeader("Почта").setSortable(true);
         grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Статус сделки").setSortable(true);
         grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Компания").setSortable(true);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));

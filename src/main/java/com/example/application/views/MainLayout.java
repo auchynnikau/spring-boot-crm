@@ -23,7 +23,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void createHeader() {
-        H1 logo = new H1("Документооборот инвестиционного фонда");
+        H1 logo = new H1("Heading");
         logo.addClassNames("text-l", "m-m");
         Button logout = new Button("Выйти", e -> securityService.logout());
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, logout);
@@ -39,7 +39,7 @@ public class MainLayout extends AppLayout {
     private void createDrawer() {
         RouterLink analyticsLink = new RouterLink("Аналитика", DashboardView.class);
         RouterLink adminLink = new RouterLink("Администрирование", AdminView.class);
-        RouterLink listLink = new RouterLink("Список документов", ListView.class);
+        RouterLink listLink = new RouterLink("Список сделок", ListView.class);
 
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
 
