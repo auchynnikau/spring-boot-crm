@@ -1,7 +1,6 @@
 package com.example.application.data.entity;
 
 import org.hibernate.annotations.Type;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -9,7 +8,6 @@ import java.util.UUID;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
-
     @Id
     @GeneratedValue
     @Type(type = "uuid-char")
@@ -28,19 +26,22 @@ public abstract class AbstractEntity {
         if (id != null) {
             return id.hashCode();
         }
+
         return super.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof AbstractEntity)) {
-            return false; // null or other class
+            return false;
         }
+
         AbstractEntity other = (AbstractEntity) obj;
 
         if (id != null) {
             return id.equals(other.id);
         }
+
         return super.equals(other);
     }
 }

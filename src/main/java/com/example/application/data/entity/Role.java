@@ -6,10 +6,7 @@ import javax.persistence.*;
 public class Role extends AbstractEntity {
     private String role;
 
-
-    public Role() {
-
-    }
+    public Role() { }
 
     public Role(String role) {
         this.role = role;
@@ -22,5 +19,4 @@ public class Role extends AbstractEntity {
     public void setRole(String role) {
         this.role = role;
     }
-
 }

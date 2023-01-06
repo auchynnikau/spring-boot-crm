@@ -43,9 +43,10 @@ public class CrmService {
 
     public void saveContact(Contact contact) {
         if (contact == null) {
-            System.err.println("Contact is null. Are you sure you have connected your form to the application?");
+            System.err.println("Fill required fields!");
             return;
         }
+
         contactRepository.save(contact);
     }
 

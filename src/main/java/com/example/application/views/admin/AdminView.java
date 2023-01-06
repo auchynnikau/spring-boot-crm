@@ -20,7 +20,7 @@ import javax.annotation.security.PermitAll;
 @Component
 @Scope("prototype")
 @Route(value="admin", layout = MainLayout.class)
-@PageTitle("Администрирование")
+@PageTitle("Admin page")
 @PermitAll
 public class AdminView extends VerticalLayout {
     Grid<Users> grid = new Grid<>(Users.class);
@@ -46,34 +46,28 @@ public class AdminView extends VerticalLayout {
         content.setFlexShrink(0, form);
         content.addClassNames("content", "gap-m");
         content.setSizeFull();
-
         add(getToolbar(), content);
         updateList();
         closeEditor();
-        grid.asSingleSelect().addValueChangeListener(event ->
-                editUser(event.getValue()));
+        grid.asSingleSelect().addValueChangeListener(event -> editUser(event.getValue()));
     }
 
     private void configureGrid() {
         grid.addClassNames("user-grid");
         grid.setSizeFull();
-        grid.setColumns("login", "password");
-
-        grid.addColumn(Users::getLogin).setHeader("Логин").setSortable(true);
-        grid.addColumn(Users::getPassword).setHeader("Пароль");
-        grid.addColumn(user -> user.getUserRole().getRole()).setHeader("Роль").setSortable(true);
+        grid.setColumns("login");
+        grid.addColumn(user -> user.getUserRole().getRole()).setHeader("Role").setSortable(true);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Фильтр по логину...");
+        filterText.setPlaceholder("Search");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
-        Button addUserButton = new Button("Создать пользователя");
+        Button addUserButton = new Button("Add new user");
         addUserButton.addClickListener(click -> addUser());
-
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addUserButton);
         toolbar.addClassName("toolbar");
         return toolbar;

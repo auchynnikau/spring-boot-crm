@@ -6,9 +6,7 @@ import javax.persistence.Entity;
 public class Status extends AbstractEntity {
     private String name;
 
-    public Status() {
-
-    }
+    public Status() {}
 
     public Status(String name) {
         this.name = name;
@@ -21,5 +19,4 @@ public class Status extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
-
 }

@@ -32,9 +32,10 @@ public class UserService {
 
     public void saveUser(Users user) {
         if (user == null) {
-            System.err.println("User is null. Are you sure you have connected your form to the application?");
+            System.err.println("Fill required fields!");
             return;
         }
+
         usersRepository.save(user);
     }
 

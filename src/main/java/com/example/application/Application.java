@@ -7,17 +7,12 @@ import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * The entry point of the Spring Boot application.
- */
 @SpringBootApplication
 @NpmPackage(value = "lumo-css-framework", version = "^4.0.10")
 @Theme("flowcrmtutorial")
-@PWA(name = "Spring Boot CRM", shortName = "CRM", offlinePath="offline.html", offlineResources = { "./images/offline.png"})
+@PWA(name = "CRM", shortName = "CRM", offlinePath="offline.html", offlineResources = { "./images/offline.png"})
 public class Application implements AppShellConfigurator {
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
 }

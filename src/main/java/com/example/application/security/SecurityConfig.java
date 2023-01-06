@@ -19,18 +19,14 @@ public class SecurityConfig extends VaadinWebSecurity {
 
   private static class CrmInMemoryUserDetailsManager extends InMemoryUserDetailsManager {
     public CrmInMemoryUserDetailsManager() {
-      createUser(new User("user",
-              "{noop}userpass",
-              Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))));
+      createUser(new User("admin", "{noop}admin",
+              Collections.singleton(new SimpleGrantedAuthority("USER"))));
     }
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // Authorize access to /images/ without authentication
     http.authorizeRequests().antMatchers("/images/**").permitAll();
-    // Set default security policy that permits Vaadin internal requests and
-    // denies all other
     super.configure(http);
     setLoginView(http, LoginView.class, "/logout");
   }

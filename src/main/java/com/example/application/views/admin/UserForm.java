@@ -21,20 +21,19 @@ import java.util.List;
 public class UserForm extends FormLayout {
     private Users user;
 
-    TextField login = new TextField("Логин");
-    TextField password = new TextField("Пароль");
-    ComboBox<Role> role = new ComboBox<>("Роль");
+    TextField login = new TextField("Username");
+    TextField password = new TextField("Password");
+    ComboBox<Role> role = new ComboBox<>("User role");
 
     Binder<Users> binder = new BeanValidationBinder<>(Users.class);
 
-    Button save = new Button("Сохранить");
-    Button delete = new Button("Удалить");
-    Button close = new Button("Отменить");
+    Button save = new Button("Save");
+    Button delete = new Button("Delete");
+    Button close = new Button("Cancel");
 
     public UserForm(List<Role> roles) {
         addClassName("user-form");
         binder.bindInstanceFields(this);
-
         role.setItems(roles);
         role.setItemLabelGenerator(Role::getRole);
         add(login, password, role, createButtonsLayout());
