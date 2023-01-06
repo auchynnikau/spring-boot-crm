@@ -1,7 +1,6 @@
 package com.example.application.data.entity;
 
 import org.hibernate.annotations.Formula;
-
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;

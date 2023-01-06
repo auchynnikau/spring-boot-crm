@@ -20,7 +20,7 @@ import javax.annotation.security.PermitAll;
 @Component
 @Scope("prototype")
 @Route(value="", layout = MainLayout.class)
-@PageTitle("Клиенты")
+@PageTitle("Deals")
 @PermitAll
 public class ListView extends VerticalLayout {
     Grid<Contact> grid = new Grid<>(Contact.class);
@@ -58,22 +58,18 @@ public class ListView extends VerticalLayout {
         grid.addClassNames("contact-grid");
         grid.setSizeFull();
         grid.setColumns("firstName", "lastName", "email");
-
-//        grid.addColumn(Contact::getFirstName).setHeader("Имя").setSortable(true);
-//        grid.addColumn(Contact::getLastName).setHeader("Фамилия").setSortable(true);
-//        grid.addColumn(Contact::getEmail).setHeader("Почта").setSortable(true);
-        grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Статус сделки").setSortable(true);
-        grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Компания").setSortable(true);
+        grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Deal Status").setSortable(true);
+        grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company").setSortable(true);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Фильтр по имени...");
+        filterText.setPlaceholder("Search");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
-        Button addContactButton = new Button("Добавить клиента");
+        Button addContactButton = new Button("Add new client");
         addContactButton.addClickListener(click -> addContact());
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addContactButton);
@@ -117,6 +113,4 @@ public class ListView extends VerticalLayout {
     private void updateList() {
         grid.setItems(service.findAllContacts(filterText.getValue()));
     }
-
-
 }

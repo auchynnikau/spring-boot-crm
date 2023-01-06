@@ -23,46 +23,36 @@ import java.util.List;
 public class ContactForm extends FormLayout {
   private Contact contact;
 
-  TextField firstName = new TextField("Имя");
-  TextField lastName = new TextField("Фамилия");
-  EmailField email = new EmailField("Почта");
-  ComboBox<Status> status = new ComboBox<>("Статус");
-  ComboBox<Company> company = new ComboBox<>("Компания");
+  TextField firstName = new TextField("Name");
+  TextField lastName = new TextField("Surname");
+  EmailField email = new EmailField("Email");
+  ComboBox<Status> status = new ComboBox<>("Status");
+  ComboBox<Company> company = new ComboBox<>("Company");
   Binder<Contact> binder = new BeanValidationBinder<>(Contact.class);
 
-  Button save = new Button("Сохранить");
-  Button delete = new Button("Удалить");
-  Button close = new Button("Отменить");
+  Button save = new Button("Save");
+  Button delete = new Button("Delete");
+  Button close = new Button("Cancel");
 
   public ContactForm(List<Company> companies, List<Status> statuses) {
     addClassName("contact-form");
     binder.bindInstanceFields(this);
-
     company.setItems(companies);
     company.setItemLabelGenerator(Company::getName);
     status.setItems(statuses);
     status.setItemLabelGenerator(Status::getName);
-    add(firstName,
-        lastName,
-        email,
-        company,
-        status,
-        createButtonsLayout()); 
+    add(firstName, lastName, email, company, status, createButtonsLayout());
   }
 
   private HorizontalLayout createButtonsLayout() {
     save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
     delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
     close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
-
     save.addClickShortcut(Key.ENTER);
     close.addClickShortcut(Key.ESCAPE);
-
     save.addClickListener(event -> validateAndSave());
     delete.addClickListener(event -> fireEvent(new DeleteEvent(this, contact)));
     close.addClickListener(event -> fireEvent(new CloseEvent(this)));
-
-
     binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
 
     return new HorizontalLayout(save, delete, close); 
@@ -82,7 +72,6 @@ public class ContactForm extends FormLayout {
     }
   }
 
-  // Events
   public static abstract class ContactFormEvent extends ComponentEvent<ContactForm> {
     private final Contact contact;
 
@@ -106,7 +95,6 @@ public class ContactForm extends FormLayout {
     DeleteEvent(ContactForm source, Contact contact) {
       super(source, contact);
     }
-
   }
 
   public static class CloseEvent extends ContactFormEvent {

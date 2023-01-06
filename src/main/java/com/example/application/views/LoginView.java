@@ -10,7 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @Route("login")
-@PageTitle("Вход")
+@PageTitle("Sign In")
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
 	private final LoginForm login = new LoginForm();
@@ -18,16 +18,14 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 	public LoginView(){
 		LoginI18n i18n = LoginI18n.createDefault();
 		LoginI18n.Form i18nForm = i18n.getForm();
-		i18nForm.setTitle("Авторизация");
-		i18nForm.setUsername("Логин");
-		i18nForm.setPassword("Пароль");
-		i18nForm.setSubmit("Войти");
-		i18nForm.setForgotPassword("Забыли пароль?");
+		i18nForm.setTitle("Sign In");
+		i18nForm.setUsername("Username");
+		i18nForm.setPassword("Password");
+		i18nForm.setSubmit("Sign in");
 		i18n.setForm(i18nForm);
 		LoginI18n.ErrorMessage i18nErrorMessage = i18n.getErrorMessage();
-		i18nErrorMessage.setTitle("Ошибка!");
-		i18nErrorMessage.setMessage(
-				"Неверный логин или пароль.");
+		i18nErrorMessage.setTitle("Error!");
+		i18nErrorMessage.setMessage("Incorrect username or password.");
 		i18n.setErrorMessage(i18nErrorMessage);
 
 		login.setI18n(i18n);
@@ -40,7 +38,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 		login.setAction("login");  
 
 		VerticalLayout header = new VerticalLayout();
-		header.add(new H1("Документооборот ИФ"));
+		header.add(new H1("Spring Boot CRM"));
 		header.setAlignItems(Alignment.CENTER);
 
 		add(header, login);
@@ -48,8 +46,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
 	@Override
 	public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-		// inform the user about an authentication error
-		if(beforeEnterEvent.getLocation() 
+		if(beforeEnterEvent.getLocation()
         .getQueryParameters()
         .getParameters()
         .containsKey("error")) {

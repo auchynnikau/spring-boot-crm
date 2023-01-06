@@ -23,23 +23,22 @@ public class MainLayout extends AppLayout {
     }
 
     private void createHeader() {
-        H1 logo = new H1("Heading");
+        H1 logo = new H1("Spring Boot CRM");
         logo.addClassNames("text-l", "m-m");
-        Button logout = new Button("Выйти", e -> securityService.logout());
+        Button logout = new Button("Logout", e -> securityService.logout());
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, logout);
 
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.expand(logo);
         header.setWidth("100%");
         header.addClassNames("py-0", "px-m");
-
         addToNavbar(header);
     }
 
     private void createDrawer() {
-        RouterLink analyticsLink = new RouterLink("Аналитика", DashboardView.class);
-        RouterLink adminLink = new RouterLink("Администрирование", AdminView.class);
-        RouterLink listLink = new RouterLink("Список сделок", ListView.class);
+        RouterLink analyticsLink = new RouterLink("Analytics", DashboardView.class);
+        RouterLink adminLink = new RouterLink("Admin page", AdminView.class);
+        RouterLink listLink = new RouterLink("Deals", ListView.class);
 
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
 

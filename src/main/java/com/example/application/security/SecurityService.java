@@ -19,15 +19,13 @@ public class SecurityService {
         if (principal instanceof UserDetails) {
             return (UserDetails) context.getAuthentication().getPrincipal();
         }
-        // Anonymous or no authentication.
+
         return null;
     }
 
     public void logout() {
         UI.getCurrent().getPage().setLocation(LOGOUT_SUCCESS_URL);
         SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-        logoutHandler.logout(
-                VaadinServletRequest.getCurrent().getHttpServletRequest(), null,
-                null);
+        logoutHandler.logout(VaadinServletRequest.getCurrent().getHttpServletRequest(), null, null);
     }
 }

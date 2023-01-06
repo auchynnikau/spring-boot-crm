@@ -14,7 +14,7 @@ import com.vaadin.flow.router.Route;
 import javax.annotation.security.PermitAll;
 
 @Route(value = "dashboard", layout = MainLayout.class)
-@PageTitle("Главная")
+@PageTitle("Dashboard")
 @PermitAll
 public class DashboardView extends VerticalLayout {
     private final CrmService service;
@@ -27,7 +27,7 @@ public class DashboardView extends VerticalLayout {
     }
 
     private Component getContactStats() {
-        Span stats = new Span(service.countContacts() + " клиентов");
+        Span stats = new Span(service.countContacts() + " active clients");
         stats.addClassNames("text-xl", "mt-m");
         return stats;
     }

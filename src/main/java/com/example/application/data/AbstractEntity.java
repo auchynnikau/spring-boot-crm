@@ -24,19 +24,22 @@ public abstract class AbstractEntity {
         if (id != null) {
             return id.hashCode();
         }
+
         return super.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof AbstractEntity)) {
-            return false; // null or other class
+            return false;
         }
+
         AbstractEntity other = (AbstractEntity) obj;
 
         if (id != null) {
             return id.equals(other.id);
         }
+
         return super.equals(other);
     }
 }
